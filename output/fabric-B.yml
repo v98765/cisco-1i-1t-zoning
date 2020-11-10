@@ -1,0 +1,36 @@
+---
+- name: configure zoneset on fabric b
+  hosts: fabric_b
+  gather_facts: false
+
+  tasks:
+  - name: task configure zoneset on fabric_b
+    cisco.nxos.nxos_zone_zoneset:
+      zone_zoneset_details:
+      - mode: enhanced
+        vsan: 1
+        zone:
+        - members:
+          - pwwn: 20:05:00:a0:98:31:80:bb
+          - pwwn: 21:00:00:24:ff:50:82:bb
+          name: data01_esxi01
+        - members:
+          - pwwn: 20:05:00:a0:98:31:80:bb
+          - pwwn: 21:00:00:24:ff:50:81:bb
+          name: data01_esxi02
+        - members:
+          - pwwn: 20:06:00:a0:98:31:80:bb
+          - pwwn: 21:00:00:24:ff:50:82:bb
+          name: data02_esxi01
+        - members:
+          - pwwn: 20:06:00:a0:98:31:80:bb
+          - pwwn: 21:00:00:24:ff:50:81:bb
+          name: data02_esxi02
+        zoneset:
+        - action: activate
+          members:
+          - name: data01_esxi01
+          - name: data01_esxi02
+          - name: data02_esxi01
+          - name: data02_esxi02
+         name: ZonesetB
