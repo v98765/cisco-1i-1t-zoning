@@ -7,23 +7,24 @@
   - name: task configure zoneset on fabric_{{ fabric }}
     cisco.nxos.nxos_zone_zoneset:
       zone_zoneset_details:
-      - mode: enhanced
-        vsan: 1
-        zone:
+        - mode: enhanced
+          vsan: 1
+          zone:
 {% for t in target %}
 {% for i in initiator %}
-        - members:
-          - pwwn: {{ t.pwwn }}
-          - pwwn: {{ i.pwwn }}
-          name: {{ t.host }}_{{ i.host }}
+            - members:
+                - pwwn: {{ t.pwwn }}
+                - pwwn: {{ i.pwwn }}
+              name: {{ t.host }}_{{ i.host }}
 {% endfor %}
 {% endfor %}
-        zoneset:
-        - action: activate
-          members:
+          zoneset:
+            - action: activate
+              members:
 {% for t in target %}
 {% for i in initiator %}
-          - name: {{ t.host }}_{{ i.host }}
+                - name: {{ t.host }}_{{ i.host }}
 {% endfor %}
 {% endfor %}
-         name: {{ zoneset }}
+              name: {{ zoneset }}
+
